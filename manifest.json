@@ -71,6 +71,7 @@
     "https://gemini.google.com/*",
     "https://aistudio.google.com/*",
     "https://chat.deepseek.com/*",
-    "https://www.perplexity.ai/*"
+    "https://www.perplexity.ai/*",
+    "https://arcanea.ai/*"
   ]
 }
