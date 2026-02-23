@@ -51,8 +51,8 @@ async function init(): Promise<void> {
   }
 
   if (result?.platform) {
-    lastDetection = result as DetectionResult;
-    showDetection(lastDetection);
+    lastDetection = result;
+    showDetection(result);
   }
 }
 
@@ -118,12 +118,12 @@ $scanBtn.addEventListener('click', async () => {
   }
 
   if (result?.platform) {
-    lastDetection = result as DetectionResult;
+    lastDetection = result;
 
     // Save to vault
-    await sendMessage({ type: 'VAULT_SAVE', detection: lastDetection });
+    await sendMessage({ type: 'VAULT_SAVE', detection: result });
 
-    showDetection(lastDetection);
+    showDetection(result);
   }
 });
 
@@ -218,7 +218,7 @@ $exportPrompts.addEventListener('click', async () => {
 
 // -- Utilities --
 
-function sendMessage(msg: Record<string, unknown>): Promise<Record<string, unknown>> {
+function sendMessage(msg: Record<string, unknown>): Promise<any> {
   return chrome.runtime.sendMessage(msg);
 }
 

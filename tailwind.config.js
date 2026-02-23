@@ -21,7 +21,7 @@ export default {
         },
       },
       fontFamily: {
-        display: ['Cinzel', 'serif'],
+        display: ['Inter', 'sans-serif'],
         body: ['Inter', 'sans-serif'],
         mono: ['JetBrains Mono', 'monospace'],
       },

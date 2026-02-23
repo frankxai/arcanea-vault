@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Arcanea Vault — AI Export & Archive",
+  "name": "Arcanea Vault — ChatGPT, Claude, Grok, Gemini Export",
   "version": "0.1.0",
-  "description": "Export conversations, images, videos & prompts from ChatGPT, Claude, Gemini, Grok, DeepSeek & Perplexity. Your AI creations, captured and organized.",
+  "description": "Export & download conversations, images, videos and prompts from ChatGPT, Claude, Grok, Gemini, DeepSeek & Perplexity to Markdown, JSON, PDF. Save to Google Drive, Obsidian, Notion.",
   "icons": {
     "16": "icons/icon-16.png",
     "48": "icons/icon-48.png",
