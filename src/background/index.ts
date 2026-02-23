@@ -172,6 +172,37 @@ const messageHandlers: Record<string, MessageHandler> = {
     return vault.getStats();
   },
 
+  // Send to Prompt Books (arcanea.ai)
+  VAULT_SEND_TO_PROMPT_BOOKS: async (message) => {
+    const detection = message.detection as DetectionResult;
+    const endpoint = (message.endpoint as string) || 'https://arcanea.ai/api/vault/import';
+
+    try {
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          source: 'arcanea-vault',
+          version: '0.1.0',
+          platform: detection.platform,
+          data: {
+            conversations: detection.conversations,
+            media: detection.media,
+            prompts: detection.prompts,
+          },
+        }),
+      });
+
+      if (!response.ok) {
+        return { error: `Prompt Books returned ${response.status}` };
+      }
+
+      return await response.json();
+    } catch (err) {
+      return { error: `Failed to connect to Prompt Books: ${err}` };
+    }
+  },
+
   // Quick export: detect + save + download in one action
   VAULT_QUICK_EXPORT: async (message) => {
     const options = (message.options as ExportOptions) || {

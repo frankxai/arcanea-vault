@@ -22,6 +22,7 @@ const $statsPrompts = document.getElementById('stat-prompts')!;
 const $exportConvos = document.getElementById('btn-export-conversations')!;
 const $downloadMedia = document.getElementById('btn-download-media')!;
 const $exportPrompts = document.getElementById('btn-export-prompts')!;
+const $sendPromptBooks = document.getElementById('btn-send-prompt-books')!;
 
 const $error = document.getElementById('error')!;
 const $unsupported = document.getElementById('unsupported')!;
@@ -213,6 +214,41 @@ $exportPrompts.addEventListener('click', async () => {
   });
 
   $status.textContent = `Exported ${lastDetection.prompts.length} prompt(s)`;
+  $status.className = 'status-success';
+});
+
+$sendPromptBooks.addEventListener('click', async () => {
+  if (!lastDetection) {
+    // Run detection first
+    const result = await sendMessage({ type: 'VAULT_DETECT_TAB' });
+    if (result?.error) {
+      showError(result.error as string);
+      return;
+    }
+    if (result?.platform) {
+      lastDetection = result;
+    }
+  }
+
+  if (!lastDetection) return;
+
+  $sendPromptBooks.setAttribute('disabled', 'true');
+  $status.textContent = 'Sending to Prompt Books...';
+  $status.className = 'status-scanning';
+
+  const result = await sendMessage({
+    type: 'VAULT_SEND_TO_PROMPT_BOOKS',
+    detection: lastDetection,
+  });
+
+  $sendPromptBooks.removeAttribute('disabled');
+
+  if (result?.error) {
+    showError(result.error as string);
+    return;
+  }
+
+  $status.textContent = result?.message || 'Sent to Prompt Books!';
   $status.className = 'status-success';
 });
 
