@@ -1,0 +1,43 @@
+{
+  "name": "arcanea-vault",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Your AI creations, captured and organized. Universal Chrome extension for exporting conversations, images, videos, and prompts from every AI platform.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite build --watch --mode development",
+    "build": "tsc --noEmit && vite build",
+    "build:dev": "vite build --mode development",
+    "preview": "vite preview",
+    "lint": "eslint src/",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "devDependencies": {
+    "@anthropic-ai/sdk": "^0.39.0",
+    "@crxjs/vite-plugin": "^2.0.0-beta.28",
+    "@types/chrome": "^0.0.287",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.7.3",
+    "vite": "^6.1.0"
+  },
+  "license": "MIT",
+  "author": "FrankX <frank@arcanea.ai>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/frankxai/arcanea-vault"
+  },
+  "keywords": [
+    "chrome-extension",
+    "ai-export",
+    "grok",
+    "chatgpt",
+    "claude",
+    "gemini",
+    "conversation-export",
+    "image-downloader",
+    "arcanea"
+  ]
+}

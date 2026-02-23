@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arcanea Vault</title>
+  <link rel="stylesheet" href="src/styles/popup.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-brand">
+      <div class="logo">V</div>
+      <div>
+        <h1 class="title">Arcanea Vault</h1>
+        <p class="subtitle" id="status">Detecting platform...</p>
+      </div>
+    </div>
+    <div class="platform-badge" id="platform-badge">
+      <span id="platform-icon"></span>
+      <span id="platform-name"></span>
+    </div>
+  </header>
+
+  <!-- Unsupported state -->
+  <div id="unsupported" class="section hidden">
+    <div class="empty-state">
+      <p class="empty-title">Not on an AI platform</p>
+      <p class="empty-desc">Navigate to ChatGPT, Claude, Gemini, Grok, DeepSeek, or Perplexity to start capturing.</p>
+      <div class="platform-grid">
+        <span class="platform-chip">Grok</span>
+        <span class="platform-chip">ChatGPT</span>
+        <span class="platform-chip">Claude</span>
+        <span class="platform-chip">Gemini</span>
+        <span class="platform-chip">DeepSeek</span>
+        <span class="platform-chip">Perplexity</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Error state -->
+  <div id="error" class="section error-box hidden"></div>
+
+  <!-- Results -->
+  <div id="results" class="section hidden">
+    <!-- Stats grid -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <span class="stat-value" id="stat-conversations">0</span>
+        <span class="stat-label">Conversations</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-value" id="stat-images">0</span>
+        <span class="stat-label">Images</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-value" id="stat-videos">0</span>
+        <span class="stat-label">Videos</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-value" id="stat-prompts">0</span>
+        <span class="stat-label">Prompts</span>
+      </div>
+    </div>
+
+    <!-- Format selector -->
+    <div class="format-row">
+      <label for="format-select">Export as</label>
+      <select id="format-select">
+        <option value="markdown">Markdown</option>
+        <option value="json">JSON</option>
+        <option value="html">HTML</option>
+        <option value="txt">Plain Text</option>
+      </select>
+    </div>
+
+    <!-- Action buttons -->
+    <div class="actions">
+      <button id="btn-quick-export" class="btn btn-primary">
+        Quick Export All
+      </button>
+      <div class="actions-row">
+        <button id="btn-export-conversations" class="btn btn-secondary" disabled>
+          Conversations
+        </button>
+        <button id="btn-download-media" class="btn btn-secondary" disabled>
+          Media
+        </button>
+        <button id="btn-export-prompts" class="btn btn-secondary" disabled>
+          Prompts
+        </button>
+      </div>
+    </div>
+
+    <!-- Rescan -->
+    <button id="btn-scan" class="btn btn-ghost">
+      Rescan Page
+    </button>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <span>Arcanea Vault v0.1.0</span>
+    <span class="footer-dot">&middot;</span>
+    <span>Local-first. No tracking.</span>
+  </footer>
+
+  <script type="module" src="src/popup/index.ts"></script>
+</body>
+</html>
