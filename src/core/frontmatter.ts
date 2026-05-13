@@ -1,13 +1,13 @@
 // ============================================================
-// Arcanea Threads — Frontmatter generation
+// Arcanea Kura — Frontmatter generation
 // YAML frontmatter conforming to FORMAT_SPEC.md v0.2.0
 // ============================================================
 
 import type { Conversation, MediaItem, PromptItem, Platform } from './types';
 
 export const SCHEMA_VERSION = '0.2.0';
-export const CAPTURED_BY = 'arcanea-threads/0.2.0';
-export const VAULT_ROOT = 'ArcaneaThreads';
+export const CAPTURED_BY = 'arcanea-kura/0.2.0';
+export const VAULT_ROOT = 'ArcaneaKura';
 
 const ASSISTANT_LABEL: Record<Platform, string> = {
   chatgpt: 'ChatGPT',

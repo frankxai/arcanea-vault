@@ -1,5 +1,5 @@
 // ============================================================
-// Arcanea Threads — Popup Controller
+// Arcanea Kura — Popup Controller
 // ============================================================
 
 import type { DetectionResult, ExportFormat } from '@/core/types';
@@ -54,7 +54,7 @@ async function init(): Promise<void> {
     return;
   }
 
-  const result = await sendMessage({ type: 'THREADS_DETECT_TAB' });
+  const result = await sendMessage({ type: 'KURA_DETECT_TAB' });
 
   if (result?.error) {
     if (result.error === 'Not on a supported AI platform') {
@@ -113,7 +113,7 @@ $scanBtn.addEventListener('click', async () => {
   $status.textContent = 'Scanning…';
   $status.className = 'subtitle status-scanning';
 
-  const result = await sendMessage({ type: 'THREADS_DETECT_TAB' });
+  const result = await sendMessage({ type: 'KURA_DETECT_TAB' });
 
   $scanBtn.removeAttribute('disabled');
 
@@ -124,7 +124,7 @@ $scanBtn.addEventListener('click', async () => {
 
   if (result?.platform) {
     lastDetection = result;
-    await sendMessage({ type: 'THREADS_SAVE', detection: result });
+    await sendMessage({ type: 'KURA_SAVE', detection: result });
     showDetection(result);
   }
 });
@@ -137,7 +137,7 @@ $quickExportBtn.addEventListener('click', async () => {
   const format = $formatSelect.value as ExportFormat;
 
   const result = await sendMessage({
-    type: 'THREADS_CAPTURE',
+    type: 'KURA_CAPTURE',
     options: {
       format,
       includeMedia: true,
@@ -155,7 +155,7 @@ $quickExportBtn.addEventListener('click', async () => {
   }
 
   const captured = result?.captured as Record<string, number>;
-  $status.textContent = `Captured ${captured?.conversations || 0} thread · ${captured?.media || 0} media · ${captured?.prompts || 0} prompts → ArcaneaThreads/`;
+  $status.textContent = `Saved ${captured?.conversations || 0} · ${captured?.media || 0} media · ${captured?.prompts || 0} prompts → ArcaneaKura/`;
   $status.className = 'subtitle status-success';
 });
 
@@ -163,11 +163,11 @@ $exportConvos.addEventListener('click', async () => {
   if (!lastDetection) return;
 
   const format = $formatSelect.value as ExportFormat;
-  await sendMessage({ type: 'THREADS_SAVE', detection: lastDetection });
+  await sendMessage({ type: 'KURA_SAVE', detection: lastDetection });
 
   for (const conv of lastDetection.conversations) {
     await sendMessage({
-      type: 'THREADS_EXPORT_ONE',
+      type: 'KURA_EXPORT_ONE',
       conversationId: conv.id,
       options: {
         format,
@@ -179,7 +179,7 @@ $exportConvos.addEventListener('click', async () => {
     });
   }
 
-  $status.textContent = `Exported ${lastDetection.conversations.length} thread(s)`;
+  $status.textContent = `Exported ${lastDetection.conversations.length} conversation(s)`;
   $status.className = 'subtitle status-success';
 });
 
@@ -205,11 +205,11 @@ $downloadMedia.addEventListener('click', async () => {
 $exportPrompts.addEventListener('click', async () => {
   if (!lastDetection) return;
 
-  await sendMessage({ type: 'THREADS_SAVE', detection: lastDetection });
+  await sendMessage({ type: 'KURA_SAVE', detection: lastDetection });
 
   const format = $formatSelect.value as ExportFormat;
   await sendMessage({
-    type: 'THREADS_EXPORT_PROMPTS',
+    type: 'KURA_EXPORT_PROMPTS',
     platform: lastDetection.platform,
     format,
   });
@@ -220,7 +220,7 @@ $exportPrompts.addEventListener('click', async () => {
 
 $sendArcanea.addEventListener('click', async () => {
   if (!lastDetection) {
-    const result = await sendMessage({ type: 'THREADS_DETECT_TAB' });
+    const result = await sendMessage({ type: 'KURA_DETECT_TAB' });
     if (result?.error) {
       showError(result.error as string);
       return;
@@ -234,7 +234,7 @@ $sendArcanea.addEventListener('click', async () => {
   $status.className = 'subtitle status-scanning';
 
   const result = await sendMessage({
-    type: 'THREADS_SEND_TO_ARCANEA',
+    type: 'KURA_SEND_TO_ARCANEA',
     detection: lastDetection,
   });
 

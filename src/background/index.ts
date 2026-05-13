@@ -1,7 +1,7 @@
 // ============================================================
-// Arcanea Threads — Background Service Worker
+// Arcanea Kura — Background Service Worker
 // Orchestrates downloads into the local Obsidian-compatible vault.
-// Local-first: every capture lands in ArcaneaThreads/ on disk.
+// Local-first: every capture lands in ArcaneaKura/ on disk.
 // ============================================================
 
 import { detectPlatform } from '@/core/detector';
@@ -28,7 +28,7 @@ import type {
 interface DownloadJob {
   /** Pre-existing remote URL (http/https) OR a blob: URL we created locally. */
   url: string;
-  /** Vault-relative path. The full chrome path is `ArcaneaThreads/<path>`. */
+  /** Vault-relative path. The full chrome path is `ArcaneaKura/<path>`. */
   vaultPath: string;
   /** When this job was created — used to clean up blob URLs we own. */
   isBlobUrl?: boolean;
@@ -54,7 +54,7 @@ async function processDownloadQueue(): Promise<void> {
         conflictAction: 'overwrite',
       });
     } catch (err) {
-      console.error('[Threads] Download failed:', fullPath, err);
+      console.error('[Kura] Download failed:', fullPath, err);
     } finally {
       if (job.isBlobUrl) {
         try { URL.revokeObjectURL(job.url); } catch { /* noop */ }
@@ -85,7 +85,7 @@ function queueText(vaultPath: string, content: string, mimeType: string): void {
 
 /**
  * Persist a detection result to disk per FORMAT_SPEC.md:
- *   - conversation.md + prompts.md inside ArcaneaThreads/<platform>/<slug>/
+ *   - conversation.md + prompts.md inside ArcaneaKura/<platform>/<slug>/
  *   - assets/<filename> for each media item
  *   - assets/<filename>-prompt.md sidecar for AI-generated media
  * Returns counts for the popup to display.
@@ -209,12 +209,12 @@ type MessageHandler = (
 ) => Promise<unknown>;
 
 const messageHandlers: Record<string, MessageHandler> = {
-  THREADS_CONTENT_READY: async (message) => {
-    console.log(`[Threads] Content script ready: ${message.platform}`);
+  KURA_CONTENT_READY: async (message) => {
+    console.log(`[Kura] Content script ready: ${message.platform}`);
     return { ok: true };
   },
 
-  THREADS_DETECT_TAB: async () => {
+  KURA_DETECT_TAB: async () => {
     const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
     if (!tab?.id || !tab.url) return { error: 'No active tab' };
 
@@ -224,7 +224,7 @@ const messageHandlers: Record<string, MessageHandler> = {
     try {
       // Accept both new and legacy detect messages while content scripts migrate.
       const result =
-        (await chrome.tabs.sendMessage(tab.id, { type: 'THREADS_DETECT' }).catch(() => null)) ??
+        (await chrome.tabs.sendMessage(tab.id, { type: 'KURA_DETECT' }).catch(() => null)) ??
         (await chrome.tabs.sendMessage(tab.id, { type: 'VAULT_DETECT' }));
       return result as DetectionResult;
     } catch {
@@ -232,7 +232,7 @@ const messageHandlers: Record<string, MessageHandler> = {
     }
   },
 
-  THREADS_CAPTURE: async (message) => {
+  KURA_CAPTURE: async (message) => {
     const options = (message.options as ExportOptions) || defaultOptions();
     const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
     if (!tab?.id || !tab.url) return { error: 'No active tab' };
@@ -244,7 +244,7 @@ const messageHandlers: Record<string, MessageHandler> = {
     try {
       detection =
         (await chrome.tabs
-          .sendMessage(tab.id, { type: 'THREADS_DETECT' })
+          .sendMessage(tab.id, { type: 'KURA_DETECT' })
           .catch(() => null)) ??
         ((await chrome.tabs.sendMessage(tab.id, { type: 'VAULT_DETECT' })) as DetectionResult);
     } catch {
@@ -259,7 +259,7 @@ const messageHandlers: Record<string, MessageHandler> = {
     };
   },
 
-  THREADS_EXPORT_ONE: async (message) => {
+  KURA_EXPORT_ONE: async (message) => {
     const id = message.conversationId as string;
     const options = (message.options as ExportOptions) || defaultOptions();
     const conv = await vault.getConversation(id);
@@ -269,7 +269,7 @@ const messageHandlers: Record<string, MessageHandler> = {
     return { filename: out.filename };
   },
 
-  THREADS_EXPORT_PROMPTS: async (message) => {
+  KURA_EXPORT_PROMPTS: async (message) => {
     const platform = message.platform as Platform | undefined;
     const format = (message.format as 'markdown' | 'json') || 'markdown';
     const prompts = await vault.listPrompts(platform);
@@ -278,7 +278,7 @@ const messageHandlers: Record<string, MessageHandler> = {
     return { filename: out.filename, count: prompts.length };
   },
 
-  THREADS_SAVE: async (message) => {
+  KURA_SAVE: async (message) => {
     const detection = message.detection as DetectionResult;
     for (const conv of detection.conversations) await vault.saveConversation(conv);
     for (const m of detection.media) await vault.saveMedia(m);
@@ -292,22 +292,26 @@ const messageHandlers: Record<string, MessageHandler> = {
     };
   },
 
-  THREADS_STATS: async () => vault.getStats(),
+  KURA_STATS: async () => vault.getStats(),
 
   // Opt-in cloud bridge — disabled by default per the local-first manifesto.
   // The user must explicitly toggle "Send to Arcanea" in settings before this fires.
-  THREADS_SEND_TO_ARCANEA: async (message) => {
+  KURA_SEND_TO_ARCANEA: async (message) => {
     const detection = message.detection as DetectionResult;
     const endpoint =
-      (message.endpoint as string) || 'https://arcanea.ai/api/threads/import';
+      (message.endpoint as string) || 'https://arcanea.ai/api/kura/import';
 
     try {
       const response = await fetch(endpoint, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Arcanea-Source': 'arcanea-kura/0.2.0',
+        },
         body: JSON.stringify({
-          source: 'arcanea-threads',
+          source: 'arcanea-kura',
           version: '0.2.0',
+          schemaVersion: '0.2.0',
           platform: detection.platform,
           data: detection,
         }),
@@ -320,14 +324,24 @@ const messageHandlers: Record<string, MessageHandler> = {
   },
 
   // ----- Legacy message names (kept until popup + content scripts migrate) ---
-  VAULT_CONTENT_READY: async (m) => messageHandlers.THREADS_CONTENT_READY(m, {} as any),
-  VAULT_DETECT_TAB: async (m) => messageHandlers.THREADS_DETECT_TAB(m, {} as any),
-  VAULT_QUICK_EXPORT: async (m) => messageHandlers.THREADS_CAPTURE(m, {} as any),
-  VAULT_EXPORT: async (m) => messageHandlers.THREADS_EXPORT_ONE(m, {} as any),
-  VAULT_EXPORT_PROMPTS: async (m) => messageHandlers.THREADS_EXPORT_PROMPTS(m, {} as any),
-  VAULT_SAVE: async (m) => messageHandlers.THREADS_SAVE(m, {} as any),
-  VAULT_STATS: async (m) => messageHandlers.THREADS_STATS(m, {} as any),
-  VAULT_SEND_TO_PROMPT_BOOKS: async (m) => messageHandlers.THREADS_SEND_TO_ARCANEA(m, {} as any),
+  // VAULT_* are from v0.1 (Arcanea Vault).
+  // THREADS_* are from v0.2.0 pre-rename (Arcanea Threads). Both alias to KURA_*.
+  VAULT_CONTENT_READY: async (m) => messageHandlers.KURA_CONTENT_READY(m, {} as any),
+  VAULT_DETECT_TAB: async (m) => messageHandlers.KURA_DETECT_TAB(m, {} as any),
+  VAULT_QUICK_EXPORT: async (m) => messageHandlers.KURA_CAPTURE(m, {} as any),
+  VAULT_EXPORT: async (m) => messageHandlers.KURA_EXPORT_ONE(m, {} as any),
+  VAULT_EXPORT_PROMPTS: async (m) => messageHandlers.KURA_EXPORT_PROMPTS(m, {} as any),
+  VAULT_SAVE: async (m) => messageHandlers.KURA_SAVE(m, {} as any),
+  VAULT_STATS: async (m) => messageHandlers.KURA_STATS(m, {} as any),
+  VAULT_SEND_TO_PROMPT_BOOKS: async (m) => messageHandlers.KURA_SEND_TO_ARCANEA(m, {} as any),
+  THREADS_CONTENT_READY: async (m) => messageHandlers.KURA_CONTENT_READY(m, {} as any),
+  THREADS_DETECT_TAB: async (m) => messageHandlers.KURA_DETECT_TAB(m, {} as any),
+  THREADS_CAPTURE: async (m) => messageHandlers.KURA_CAPTURE(m, {} as any),
+  THREADS_EXPORT_ONE: async (m) => messageHandlers.KURA_EXPORT_ONE(m, {} as any),
+  THREADS_EXPORT_PROMPTS: async (m) => messageHandlers.KURA_EXPORT_PROMPTS(m, {} as any),
+  THREADS_SAVE: async (m) => messageHandlers.KURA_SAVE(m, {} as any),
+  THREADS_STATS: async (m) => messageHandlers.KURA_STATS(m, {} as any),
+  THREADS_SEND_TO_ARCANEA: async (m) => messageHandlers.KURA_SEND_TO_ARCANEA(m, {} as any),
 
   // Download single media item by url (used by gallery scrapers)
   VAULT_DOWNLOAD_MEDIA: async (message) => {
@@ -375,4 +389,4 @@ chrome.tabs.onActivated.addListener(async (activeInfo) => {
   }
 });
 
-console.log('[Arcanea Threads] Service worker initialized · schema v0.2.0');
+console.log('[Arcanea Kura] Service worker initialized · schema v0.2.0');

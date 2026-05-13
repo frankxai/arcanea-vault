@@ -1,5 +1,5 @@
 // ============================================================
-// Arcanea Threads — In-extension index (IndexedDB)
+// Arcanea Kura — In-extension index (IndexedDB)
 // Fast cross-conversation queries. The filesystem vault is the source of truth.
 // All data stays on your device. No cloud. No tracking.
 // ============================================================

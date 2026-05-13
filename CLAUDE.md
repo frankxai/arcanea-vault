@@ -1,8 +1,8 @@
-# Arcanea Threads — Claude Code Configuration
+# Arcanea Kura — Claude Code Configuration
 
 Local-first Chrome MV3 extension that captures AI conversations into an
 Obsidian-compatible vault on disk. The repo URL is still
-`arcanea-vault`; the product is **Arcanea Threads** v0.2.0.
+`arcanea-vault`; the product is **Arcanea Kura** v0.2.0.
 
 ## Source of truth
 
@@ -11,7 +11,7 @@ Read in this order before substantive work:
 1. `FORMAT_SPEC.md` — the locked v0.2.0 vault format. **Do not modify
    without bumping `schemaVersion` everywhere.**
 2. `README.md` — public-facing positioning.
-3. `.claude/commands/threads-process.md` — the processing-layer skill that
+3. `.claude/commands/kura-process.md` — the processing-layer skill that
    downstream tools (Obsidian users, the Arcanea second-brain) depend on.
 
 ## Behavioral rules
@@ -22,7 +22,7 @@ Read in this order before substantive work:
 - The filesystem is the source of truth. IndexedDB (`src/core/storage.ts`)
   is a query index, never canonical.
 - Never break `FORMAT_SPEC.md` without bumping `schemaVersion` in
-  `src/core/frontmatter.ts`, `CAPTURED_BY`, and the `threads-process`
+  `src/core/frontmatter.ts`, `CAPTURED_BY`, and the `kura-process`
   skill's schema gate.
 - Idempotent re-capture: writing the same conversation twice must produce
   the same filesystem state, not duplicated files.
@@ -46,14 +46,15 @@ Read in this order before substantive work:
   Teal (`#00bcd4`), Cosmic Blue (`#0d47a1`), Gold (`#ffd700`), background
   `#09090b`. Fonts: Geist (UI), Instrument Serif (display), JetBrains
   Mono (mono). **Never Inter, Cinzel, or Space Grotesk.**
-- `.claude/commands/threads-process.md` — the processing skill.
+- `.claude/commands/kura-process.md` — the processing skill.
 
 ## Message namespace
 
-Outgoing messages from popup / content scripts use the `THREADS_*`
-prefix. Legacy `VAULT_*` names are aliased in the background SW for
-backwards compatibility while content scripts migrate. Remove the
-aliases when every content script is on the new names — track in v0.3.
+Outgoing messages from popup / content scripts use the `KURA_*` prefix.
+Legacy `THREADS_*` (v0.2.0 pre-rename) and `VAULT_*` (v0.1) names are
+aliased in the background SW for backwards compatibility while content
+scripts migrate. Remove the aliases when every content script is on the
+new names — track in v0.3.
 
 ## Build & test
 
@@ -101,5 +102,5 @@ file. If you need a new color, add it to `:root` in popup.css first.
   publishable content. Use Library on `arcanea.ai` for that.
 - Not a cloud product. The bridge is an opt-in mirror, not a substitute
   for the local vault.
-- Not multi-vault. One `ArcaneaThreads/` root per machine. Multi-vault is
+- Not multi-vault. One `ArcaneaKura/` root per machine. Multi-vault is
   a v0.5+ concern.

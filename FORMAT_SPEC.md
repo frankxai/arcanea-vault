@@ -1,10 +1,10 @@
-# Arcanea Threads — Vault Format Specification
+# Arcanea Kura — Vault Format Specification
 
 > Version 0.2.0 · Locked 2026-05-13
 
-This document is the contract between the **Arcanea Threads** browser extension
+This document is the contract between the **Arcanea Kura** browser extension
 (the *capture layer*) and any downstream processor (Obsidian, Logseq, the
-Claude Code `threads-process` skill, the Arcanea second-brain visualizer).
+Claude Code `kura-process` skill, the Arcanea second-brain visualizer).
 
 If a capture conforms to this spec, **any tool that reads it gets the graph for
 free**. Obsidian's native graph view renders the connections without further
@@ -32,11 +32,11 @@ work — that is the day-one viral demo.
 
 ## 2. Folder layout
 
-The capture root is `ArcaneaThreads/` inside the user's default download
+The capture root is `ArcaneaKura/` inside the user's default download
 directory. Inside it:
 
 ```
-ArcaneaThreads/
+ArcaneaKura/
 ├── _index/
 │   ├── chatgpt.md         # rollup note linking every chatgpt conversation
 │   ├── claude.md
@@ -45,7 +45,7 @@ ArcaneaThreads/
 │   ├── deepseek.md
 │   ├── perplexity.md
 │   └── all.md             # master rollup across platforms
-├── _entities/             # populated by threads-process skill (see §5)
+├── _entities/             # populated by kura-process skill (see §5)
 │   ├── characters/
 │   │   └── <name>.md
 │   ├── locations/
@@ -114,7 +114,7 @@ source: https://chatgpt.com/c/abc123
 
 # --- capture ---
 capturedAt: 2026-05-13T22:14:00+02:00
-capturedBy: arcanea-threads/0.2.0
+capturedBy: arcanea-kura/0.2.0
 schemaVersion: 0.2.0
 
 # --- shape ---
@@ -123,7 +123,7 @@ hasMedia: true
 hasCode: false
 durationApprox: 47m            # earliest → latest assistant message
 
-# --- entity tags (populated by threads-process skill; user-editable) ---
+# --- entity tags (populated by kura-process skill; user-editable) ---
 characters: []                 # e.g. ["[[Talia]]", "[[Yuna]]"]
 locations: []                  # e.g. ["[[Veldoria]]"]
 artifacts: []                  # e.g. ["[[Starlight Mark]]"]
@@ -142,7 +142,7 @@ tags: []                       # any flat tags
 
 **Convention:** All entity arrays (`characters`, `locations`, `artifacts`,
 `lore`) contain Obsidian wikilinks as quoted strings. Empty array on initial
-capture; the `threads-process` skill fills them.
+capture; the `kura-process` skill fills them.
 
 ### 3.2 Header
 
@@ -191,7 +191,7 @@ Where `assistantLabel` is the platform-specific name:
 ```markdown
 ---
 
-*Captured by [Arcanea Threads](https://github.com/frankxai/arcanea-threads).*
+*Captured by [Arcanea Kura](https://github.com/frankxai/arcanea-kura).*
 ```
 
 ---
@@ -228,8 +228,8 @@ Empty `prompts.md` is omitted entirely (no zero-content files).
 
 ## 5. `_entities/` directory (skill-managed)
 
-When the user runs `/threads-process` (the Claude Code skill), it scans
-`ArcaneaThreads/**/conversation.md`, extracts named entities, and emits one
+When the user runs `/kura-process` (the Claude Code skill), it scans
+`ArcaneaKura/**/conversation.md`, extracts named entities, and emits one
 Markdown note per entity under `_entities/`.
 
 ### 5.1 Entity note schema
@@ -249,7 +249,7 @@ schemaVersion: 0.2.0
 
 # Talia
 
-> Auto-extracted by Arcanea Threads. Promote to canon by setting `canon: true`
+> Auto-extracted by Arcanea Kura. Promote to canon by setting `canon: true`
 > and moving this file to `.arcanea/canon/characters/`.
 
 ## Mentions
@@ -334,6 +334,6 @@ A re-capture of the same conversation (matched by `id` + `platform`):
 
 The skill refuses to operate on a vault with a newer `schemaVersion` than it
 knows. It auto-migrates older vaults on first run, writing a one-line note to
-`ArcaneaThreads/.migration.log`.
+`ArcaneaKura/.migration.log`.
 
 Current: **0.2.0** (locked 2026-05-13).

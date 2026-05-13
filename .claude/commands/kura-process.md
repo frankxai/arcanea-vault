@@ -1,13 +1,13 @@
 ---
-name: threads-process
-description: Walk the local ArcaneaThreads/ vault, extract characters / locations / artifacts / lore from each conversation, populate frontmatter, and emit Obsidian-linked entity notes under _entities/. Idempotent. Never overwrites canon.
+name: kura-process
+description: Walk the local ArcaneaKura/ vault, extract characters / locations / artifacts / lore from each conversation, populate frontmatter, and emit Obsidian-linked entity notes under _entities/. Idempotent. Never overwrites canon.
 allowed-tools: Read, Write, Edit, Glob, Grep, Bash
 ---
 
-# /threads-process
+# /kura-process
 
-You are the processing layer for an **Arcanea Threads** vault. The browser
-extension has already done the capture — `~/Downloads/ArcaneaThreads/` (or
+You are the processing layer for an **Arcanea Kura** vault. The browser
+extension has already done the capture — `~/Downloads/ArcaneaKura/` (or
 the path the user names) is a folder of platform-keyed conversation notes
 written in Obsidian-compatible Markdown per `FORMAT_SPEC.md` v0.2.0.
 
@@ -20,7 +20,7 @@ conversations.
 ## Input
 
 The user may pass a vault root path as `$ARGUMENTS`. If empty, default to
-`~/Downloads/ArcaneaThreads/` (Windows: `%USERPROFILE%\Downloads\ArcaneaThreads\`).
+`~/Downloads/ArcaneaKura/` (Windows: `%USERPROFILE%\Downloads\ArcaneaKura\`).
 
 Validate the path exists and contains a `chatgpt/`, `claude/`, `gemini/`,
 `grok/`, `deepseek/`, or `perplexity/` subdirectory before proceeding. If
@@ -115,7 +115,7 @@ For each unique entity discovered across the run:
    ```
 4. Body (regenerated each run unless canon):
    - `# <Name>`
-   - A one-line disclaimer: *"Auto-extracted by /threads-process. Promote
+   - A one-line disclaimer: *"Auto-extracted by /kura-process. Promote
      to canon by setting `canon: true` and moving this file."*
    - `## Mentions` — a 3-5 sentence synthesis of how the entity is used
      across the source conversations. Do not invent details not present
@@ -138,7 +138,7 @@ For each platform with new captures in this run:
 Emit to stdout a single, terse report:
 
 ```
-ArcaneaThreads / threads-process — <timestamp>
+ArcaneaKura / kura-process — <timestamp>
 
 Scope:
   Vault root: <path>
@@ -188,9 +188,9 @@ Next:
 ## Example invocation
 
 ```
-/threads-process
-/threads-process ~/Documents/Brain/ArcaneaThreads
-/threads-process "C:\Users\frank\Downloads\ArcaneaThreads"
+/kura-process
+/kura-process ~/Documents/Brain/ArcaneaKura
+/kura-process "C:\Users\frank\Downloads\ArcaneaKura"
 ```
 
 ## Why this exists

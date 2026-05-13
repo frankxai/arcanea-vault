@@ -1,14 +1,16 @@
-# Arcanea Threads
+# Arcanea Kura
 
-**Capture every AI conversation into a local, Obsidian-compatible vault on
-your machine.**
+> **Kura — export your most precious writing.**
+
+A 蔵 (*kura*) is the fireproof storehouse a family used to keep their
+most precious scrolls, swords and records. This is the digital one.
 
 ChatGPT, Claude, Grok, Gemini, DeepSeek, Perplexity — one click, every
-thread becomes a Markdown note with YAML frontmatter, wikilinks, and
-asset folders. Drop the folder into Obsidian and you get the knowledge
-graph for free.
+conversation becomes a Markdown note with YAML frontmatter, wikilinks
+and asset folders, written straight to your disk. Drop the folder into
+Obsidian and the knowledge graph builds itself.
 
-> *Your AI work belongs on your disk, not on someone else's server.*
+*Your AI work belongs on your disk, not on someone else's server.*
 
 [![MIT License](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)](LICENSE)
 [![Chrome MV3](https://img.shields.io/badge/Chrome-MV3-4285F4?style=flat-square&logo=googlechrome&logoColor=white)](https://chrome.google.com/webstore)
@@ -24,11 +26,11 @@ You spend hours per week inside AI tools. Every conversation is real
 intellectual work — outlines, drafts, characters, lore, code, decisions.
 And almost all of it dies in someone else's sidebar.
 
-Arcanea Threads is the **capture layer**. It does one thing well:
+Arcanea Kura is the **export layer**. It does one thing well:
 
 1. Detect the platform you're on.
-2. Scrape the thread cleanly.
-3. Write it to `ArcaneaThreads/` on disk as Obsidian-compatible Markdown.
+2. Pull the conversation cleanly.
+3. Write it to `ArcaneaKura/` on disk as Obsidian-compatible Markdown.
 
 What you do with it after is *yours*. Point Obsidian at the folder and
 get the graph. Run a Claude Code skill to extract worldbuilding entities.
@@ -43,16 +45,16 @@ Pipe it into your second brain of choice. The extension never assumes.
    for manual install while it's in review)*.
 2. Open a conversation on ChatGPT, Claude, Gemini, Grok, DeepSeek or
    Perplexity.
-3. Click the Arcanea Threads icon → **Capture to vault**.
+3. Click the Arcanea Kura icon → **Export to Kura**.
 4. Files land at:
    ```
-   ~/Downloads/ArcaneaThreads/<platform>/<YYYY-MM-DD>_<slug>/
+   ~/Downloads/ArcaneaKura/<platform>/<YYYY-MM-DD>_<slug>/
    ├── conversation.md
    ├── prompts.md
    └── assets/
    ```
-5. Open `~/Downloads/ArcaneaThreads/` as a new Obsidian vault — the
-   wikilinks, backlinks, and graph view light up immediately.
+5. Open `~/Downloads/ArcaneaKura/` as a new Obsidian vault — the
+   wikilinks, backlinks and graph view light up immediately.
 
 ---
 
@@ -72,8 +74,8 @@ Pipe it into your second brain of choice. The extension never assumes.
 
 ## What gets written
 
-Every captured thread becomes a folder. Inside, a single Markdown file
-is the canonical record:
+Every exported conversation becomes a folder. Inside, a single Markdown
+file is the canonical record:
 
 ```markdown
 ---
@@ -83,7 +85,7 @@ title: "Naming the extension"
 platform: chatgpt
 source: https://chatgpt.com/c/a8d9e1c4
 capturedAt: 2026-05-13T22:14:00+02:00
-capturedBy: arcanea-threads/0.2.0
+capturedBy: arcanea-kura/0.2.0
 schemaVersion: 0.2.0
 messageCount: 24
 hasMedia: true
@@ -105,11 +107,11 @@ tags: []
 
 ## You
 
-What if we renamed the vault to something that points at the connection-graph end state?
+What if we renamed the vault to something more iconic?
 
 ## ChatGPT
 
-Three candidates worth considering — Threads, Capture, Scribe …
+Three candidates — Kura, Mnemosyne, Stele …
 ```
 
 The frontmatter is the **contract** — anything you build on top of the
@@ -125,17 +127,17 @@ The extension is one piece of a three-stage system:
 
 ```
 ┌──────────────────┐    ┌────────────────────┐    ┌────────────────────┐
-│  Capture         │ →  │  Process           │ →  │  See               │
+│  Export          │ →  │  Process           │ →  │  See               │
 │  (this ext)      │    │  (Claude Code skill│    │  (Obsidian graph,  │
-│                  │    │   /threads-process)│    │   second-brain UI) │
+│                  │    │   /kura-process)   │    │   second-brain UI) │
 └──────────────────┘    └────────────────────┘    └────────────────────┘
    browser → disk         disk → entity links        disk → visual graph
 ```
 
-- **Capture** (this repo): the extension. Local-first. No account.
-- **Process** (Claude Code): the [`threads-process`](.claude/commands/threads-process.md)
-  skill walks `ArcaneaThreads/` and emits `_entities/` notes for
-  characters, locations, artifacts, lore — fully Obsidian-linked.
+- **Export** (this repo): the extension. Local-first. No account.
+- **Process** (Claude Code): the [`kura-process`](.claude/commands/kura-process.md)
+  skill walks `ArcaneaKura/` and emits `_entities/` notes for characters,
+  locations, artifacts, lore — fully Obsidian-linked.
 - **See**: Obsidian's native graph view shows the connections forming in
   real time. Later, the Arcanea second-brain visualizer rebuilds this in
   3D, but that is deferred — Obsidian carries day one.
@@ -148,8 +150,8 @@ eventual visualizer. The extension is the on-ramp.
 ## Install (manual / developer mode)
 
 ```bash
-git clone https://github.com/frankxai/arcanea-vault arcanea-threads
-cd arcanea-threads
+git clone https://github.com/frankxai/arcanea-vault arcanea-kura
+cd arcanea-kura
 pnpm install
 pnpm build
 ```
@@ -162,21 +164,23 @@ Then in Chrome:
 4. Pin the extension to the toolbar.
 
 The repo URL is still `arcanea-vault` until the GitHub rename lands — the
-product name is **Arcanea Threads** v0.2.0.
+product name is **Arcanea Kura** v0.2.0.
 
 ---
 
 ## Privacy
 
-- Everything captured lives on **your disk** inside `ArcaneaThreads/`.
+- Everything captured lives on **your disk** inside `ArcaneaKura/`.
 - IndexedDB is used only as an in-extension lookup index for fast
   cross-conversation queries. The filesystem is the source of truth.
 - No telemetry. No analytics. No account required.
 - A single optional **"Send to Arcanea"** button exists in the popup for
-  users who want to mirror captures to their Arcanea second-brain. It is
+  users who want to mirror exports to their Arcanea second-brain. It is
   off by default and never fires without an explicit click.
 - Host permissions are limited to the AI platforms the scrapers run on,
   plus `arcanea.ai` for the optional bridge. Nothing else.
+
+Full policy: [arcanea.ai/privacy/kura](https://arcanea.ai/privacy/kura).
 
 ---
 
@@ -184,7 +188,7 @@ product name is **Arcanea Threads** v0.2.0.
 
 | Version | Scope |
 |---------|-------|
-| **0.2.0** *(current)* | Local-first vault, Obsidian-compatible markdown, `threads-process` skill, redesigned popup. |
+| **0.2.0** *(current)* | Local-first vault, Obsidian-compatible markdown, `kura-process` skill, redesigned popup. |
 | 0.2.1 | Side-panel browser for the local vault; in-extension search. |
 | 0.3.0 | Per-platform scraper hardening (DOM drift fixes); idempotent re-capture. |
 | 0.4.0 | Real-time graph preview inside the side panel (D3 + frontmatter links). |
@@ -213,5 +217,5 @@ MIT — see [LICENSE](LICENSE).
 
 ---
 
-*Built by [Frank](https://arcanea.ai) as the capture on-ramp for the
+*Built by [Frank](https://arcanea.ai) as the export on-ramp for the
 Arcanea creative OS.*

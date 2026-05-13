@@ -1,6 +1,6 @@
 // ============================================================
-// Arcanea Threads — Core Types
-// Your AI work, captured into a local Obsidian-compatible vault.
+// Arcanea Kura — Core Types
+// Your AI work, exported into a local Obsidian-compatible vault.
 // ============================================================
 
 /** Supported AI platforms */
