@@ -1,4 +1,4 @@
-# Arcanea Kura — Chrome Web Store listing
+# Kura — Chrome Web Store listing
 
 > Submission package. Copy each section verbatim into the Web Store
 > developer dashboard. Update only the URLs (privacy policy, repo) once
@@ -10,7 +10,7 @@
 
 | Field | Value |
 |-------|-------|
-| **Item name** | Arcanea Kura |
+| **Item name** | Kura |
 | **Summary** (132 chars max) | Export your AI conversations from ChatGPT, Claude, Grok, Gemini, DeepSeek, Perplexity to a local Obsidian vault. Local-first. |
 | **Category** | Productivity |
 | **Language** | English (en) |
@@ -31,13 +31,13 @@ Kura — export your most precious writing.
 A 蔵 (kura) is the fireproof storehouse a family used to keep their most
 valuable scrolls and records. This is the digital one for your AI work.
 
-What Arcanea Kura does
+What Kura does
 ----------------------
 - Detects when you're on ChatGPT, Claude, Grok, Gemini, DeepSeek or
   Perplexity.
 - Pulls the current conversation, the user prompts, and any
   AI-generated images or videos.
-- Writes it all to ~/Downloads/ArcaneaKura/ on your computer as
+- Writes it all to ~/Downloads/Kura/ on your computer as
   Obsidian-compatible Markdown with YAML frontmatter, wikilinks, and
   per-conversation asset folders.
 
@@ -51,7 +51,7 @@ Local-first. No tracking.
 
 Works with Obsidian out of the box
 ----------------------------------
-- Open the ArcaneaKura/ folder as an Obsidian vault. The graph view
+- Open the Kura/ folder as an Obsidian vault. The graph view
   builds itself from the wikilinks in the frontmatter.
 - Compatible with Dataview, Templater, and other Obsidian plugins that
   read frontmatter.
@@ -94,7 +94,7 @@ into the matching fields.
 | Permission | Justification |
 |------------|---------------|
 | `activeTab` | Read the current tab's URL to detect which AI platform the user is on, and inject a content script to extract the conversation. Only used when the user clicks the extension icon. |
-| `downloads` | Write captured Markdown notes and media files to the user's Downloads folder under `ArcaneaKura/`. The extension's entire purpose. |
+| `downloads` | Write captured Markdown notes and media files to the user's Downloads folder under `Kura/`. The extension's entire purpose. |
 | `storage` | Persist user preferences (export format, default platform filter) and an in-extension IndexedDB index of captured conversations for fast lookup. No data leaves the device. |
 | `scripting` | Required to inject the per-platform content scripts that read the DOM of each supported AI tool. |
 | `sidePanel` | Render the side-panel browser for captured conversations (in v0.2.1 — currently a placeholder). |
@@ -167,7 +167,7 @@ Subject: a glowing Japanese kura (蔵) storehouse made of soft teal and
 gold light, floating in deep cosmic blue space. The kura's door is
 slightly open, with rays of teal light streaming out and forming the
 outline of a stylized "A" (for Arcanea). On the foreground, in
-restrained white sans-serif type, the words "Arcanea Kura" with the
+restrained white sans-serif type, the words "Kura" with the
 tagline "Export your most precious writing" beneath. Style: editorial,
 Apple-level product photography, minimalist, no clutter. Color palette:
 Atlantean teal (#00bcd4), cosmic blue (#0d47a1), gold (#ffd700),
@@ -189,7 +189,7 @@ After running `pnpm build` and loading the unpacked `dist/` in Chrome:
 |---|-----------|----------------------|
 | 1 | Popup open on a ChatGPT tab, "Conversations 1" highlighted | One click captures the entire conversation, prompts and images to a folder on your disk. |
 | 2 | Popup with format dropdown open, showing Markdown / JSON / HTML / Plain text | Pick a format. Markdown is Obsidian-ready out of the box. |
-| 3 | Obsidian graph view of a 50-conversation ArcaneaKura/ vault | Drop the folder into Obsidian. The knowledge graph builds itself. |
+| 3 | Obsidian graph view of a 50-conversation Kura/ vault | Drop the folder into Obsidian. The knowledge graph builds itself. |
 | 4 | Conversation.md file open in VS Code showing the YAML frontmatter | Every conversation gets a YAML contract that worldbuilding skills can read. |
 | 5 | Claude Code terminal showing `/kura-process` extracting entities | Run /kura-process to turn raw captures into a linked entity graph. |
 
@@ -232,5 +232,5 @@ border, no text, no embellishment.
 - [ ] `$5` Chrome developer fee paid (one-time)
 - [ ] Submission form filled per §1, §3, §4
 - [ ] Test the unpacked `dist/` against a real ChatGPT, Claude, and Grok
-      conversation; verify files land in `~/Downloads/ArcaneaKura/`
+      conversation; verify files land in `~/Downloads/Kura/`
 - [ ] Submit → expect 1-3 business days for review

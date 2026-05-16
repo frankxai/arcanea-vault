@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Arcanea Kura — smoke test
+# Kura — smoke test
 # Drives the local build, verifies dist/ contents, then walks you through
 # the manual Chrome steps because automation cannot click "Load unpacked"
 # for you. Run from the repo root.
@@ -34,7 +34,7 @@ ok()   { printf "${C_OK}✓ %s${C_END}\n" "$*"; }
 fail() { printf "${C_FAIL}✗ %s${C_END}\n" "$*"; }
 dim()  { printf "${C_DIM}%s${C_END}\n" "$*"; }
 
-printf "\n${C_INFO}Arcanea Kura smoke test — $(date -u +"%Y-%m-%dT%H:%M:%SZ")${C_END}\n"
+printf "\n${C_INFO}Kura smoke test — $(date -u +"%Y-%m-%dT%H:%M:%SZ")${C_END}\n"
 printf "${C_DIM}repo: %s${C_END}\n\n" "$REPO_ROOT"
 
 # ----- 1. Toolchain ---------------------------------------------------------
@@ -141,24 +141,24 @@ Now the parts that require your hands on a real browser:
      2. Toggle Developer mode (top right)
      3. Click "Load unpacked"
      4. Select this repo's dist/ folder
-     5. Pin Arcanea Kura to the toolbar
+     5. Pin Kura to the toolbar
 
   B) Capture a real conversation
      1. Open any of: chatgpt.com / claude.ai / gemini.google.com /
         grok.com / chat.deepseek.com / www.perplexity.ai
      2. Open or start a conversation worth keeping
      3. Click the Kura icon → "Export to Kura"
-     4. Verify files at: ~/Downloads/ArcaneaKura/<platform>/<date>_<slug>/
+     4. Verify files at: ~/Downloads/Kura/<platform>/<date>_<slug>/
                           ├── conversation.md  (YAML frontmatter + body)
                           ├── prompts.md       (user prompts only)
                           └── assets/          (if media present)
 
   C) Open the vault in Obsidian
-     File → Open vault → ~/Downloads/ArcaneaKura/ → graph view should render
+     File → Open vault → ~/Downloads/Kura/ → graph view should render
 
   D) Run the processing skill
      Open Claude Code in any directory, then:
-       /kura-process ~/Downloads/ArcaneaKura
+       /kura-process ~/Downloads/Kura
      Verify _entities/{characters,locations,artifacts,lore}/*.md notes appear
 
 If any of A–D fail, the failure point tells you exactly what's broken:

@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
-  "name": "Arcanea Kura — Export your most precious writing from ChatGPT, Claude, Grok, Gemini",
-  "short_name": "Arcanea Kura",
+  "name": "Kura — Export your most precious writing from ChatGPT, Claude, Grok, Gemini",
+  "short_name": "Kura",
   "version": "0.2.0",
   "description": "Export conversations, prompts and AI-generated media from ChatGPT, Claude, Grok, Gemini, DeepSeek and Perplexity into a local Obsidian-compatible vault. Local-first. No cloud. No tracking.",
   "icons": {

@@ -44,9 +44,9 @@ test.describe('Arcanea Kura extension — load + detection', () => {
     const raw = fs.readFileSync(path.join(DIST, 'manifest.json'), 'utf-8');
     const manifest = JSON.parse(raw);
     expect(manifest.manifest_version).toBe(3);
-    expect(manifest.name).toMatch(/Kura/);
+    expect(manifest.name).toMatch(/^Kura/);
     expect(manifest.version).toMatch(/^0\.2\./);
-    expect(manifest.short_name).toBe('Arcanea Kura');
+    expect(manifest.short_name).toBe('Kura');
   });
 
   test('service worker registers', async () => {
@@ -99,10 +99,10 @@ test.describe('Arcanea Kura extension — load + detection', () => {
     const popup = await context.newPage();
     await popup.goto(`chrome-extension://${extensionId}/popup.html`);
 
-    await expect(popup.locator('.title')).toHaveText('Arcanea Kura');
+    await expect(popup.locator('.title')).toHaveText('Kura');
     await expect(popup.locator('.logo')).toHaveText('K');
     await expect(popup.locator('#btn-quick-export')).toContainText('Export to Kura');
-    await expect(popup.locator('footer')).toContainText('Arcanea Kura v0.2.0');
+    await expect(popup.locator('footer')).toContainText('Kura v0.2.0');
   });
 
   test('sidepanel HTML loads with library scaffolding', async () => {

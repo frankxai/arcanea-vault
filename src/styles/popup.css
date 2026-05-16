@@ -1,6 +1,7 @@
 /* ============================================================
-   Arcanea Kura — Popup & Sidepanel Styles
-   Design tokens aligned to @arcanea/design-system (May 2026)
+   Kura — Popup & Sidepanel Styles
+   Design tokens originally from @arcanea/design-system (May 2026).
+   Self-contained — no runtime dep on Arcanea packages.
    ============================================================ */
 
 @import url('https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Instrument+Serif&family=JetBrains+Mono:wght@400;500&display=swap');

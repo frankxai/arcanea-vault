@@ -1,5 +1,5 @@
 // ============================================================
-// Arcanea Kura — Side-panel Library
+// Kura — Side-panel Library
 // Lists captured conversations from IndexedDB. Opens each in
 // Obsidian via the obsidian:// URI scheme when the user clicks.
 // ============================================================

@@ -1,5 +1,5 @@
 // ============================================================
-// Arcanea Kura — Export Engine
+// Kura — Export Engine
 // Emits Obsidian-compatible markdown per FORMAT_SPEC.md v0.2.0
 // ============================================================
 
@@ -287,7 +287,7 @@ function renderConversation(conv: Conversation, slug: string, options: ExportOpt
   const footer = [
     '---',
     '',
-    `*Captured by [Arcanea Kura](https://github.com/frankxai/arcanea-vault) · schema v${SCHEMA_VERSION}*`,
+    `*Captured by [Kura](https://github.com/frankxai/arcanea-vault) · schema v${SCHEMA_VERSION}*`,
     '',
   ].join('\n');
 
@@ -319,7 +319,7 @@ function renderHtml(conv: Conversation, _slug: string, options: ExportOptions): 
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>${escapeHtml(conv.title)} — Arcanea Kura</title>
+  <title>${escapeHtml(conv.title)} — Kura</title>
   <style>
     :root {
       --bg: #09090b;
@@ -365,7 +365,7 @@ function renderHtml(conv: Conversation, _slug: string, options: ExportOptions): 
     <div>Source: <a href="${escapeAttr(conv.url)}">${escapeHtml(conv.url)}</a></div>
   </div>
   ${messages}
-  <div class="footer">Captured by <a href="https://github.com/frankxai/arcanea-vault">Arcanea Kura</a></div>
+  <div class="footer">Captured by <a href="https://github.com/frankxai/arcanea-vault">Kura</a></div>
 </body>
 </html>`;
 }

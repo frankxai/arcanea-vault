@@ -1,5 +1,5 @@
 // ============================================================
-// Arcanea Kura — Core Types
+// Kura — Core Types
 // Your AI work, exported into a local Obsidian-compatible vault.
 // ============================================================
 

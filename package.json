@@ -1,8 +1,8 @@
 {
-  "name": "arcanea-kura",
+  "name": "kura",
   "version": "0.2.0",
   "private": true,
-  "description": "Export your most precious writing. Local-first Chrome extension that captures conversations, prompts and AI-generated media from every major AI platform into an Obsidian-compatible vault on disk. No cloud. No tracking.",
+  "description": "Kura — export your most precious writing. Local-first Chrome extension that captures conversations, prompts and AI-generated media from every major AI platform into an Obsidian-compatible vault on disk. No cloud. No tracking. Built by Arcanea, free for everyone.",
   "type": "module",
   "packageManager": "pnpm@10.32.1",
   "scripts": {

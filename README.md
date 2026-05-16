@@ -1,4 +1,4 @@
-# Arcanea Kura
+# Kura
 
 > **Kura — export your most precious writing.**
 
@@ -24,17 +24,17 @@ Obsidian and the knowledge graph builds itself.
 
 You spend hours per week inside AI tools. Every conversation is real
 intellectual work — outlines, drafts, characters, lore, code, decisions.
-And almost all of it dies in someone else's sidebar.
+Almost all of it dies in someone else's sidebar.
 
-Arcanea Kura is the **export layer**. It does one thing well:
+Kura is the **export layer**. It does one thing well:
 
 1. Detect the platform you're on.
 2. Pull the conversation cleanly.
-3. Write it to `ArcaneaKura/` on disk as Obsidian-compatible Markdown.
+3. Write it to `Kura/` on disk as Obsidian-compatible Markdown.
 
 What you do with it after is *yours*. Point Obsidian at the folder and
-get the graph. Run a Claude Code skill to extract worldbuilding entities.
-Pipe it into your second brain of choice. The extension never assumes.
+get the graph. Run a Claude Code skill to extract entities. Pipe it
+into your second brain of choice. Kura never assumes.
 
 ---
 
@@ -45,16 +45,16 @@ Pipe it into your second brain of choice. The extension never assumes.
    for manual install while it's in review)*.
 2. Open a conversation on ChatGPT, Claude, Gemini, Grok, DeepSeek or
    Perplexity.
-3. Click the Arcanea Kura icon → **Export to Kura**.
+3. Click the Kura icon → **Export to Kura**.
 4. Files land at:
    ```
-   ~/Downloads/ArcaneaKura/<platform>/<YYYY-MM-DD>_<slug>/
+   ~/Downloads/Kura/<platform>/<YYYY-MM-DD>_<slug>/
    ├── conversation.md
    ├── prompts.md
    └── assets/
    ```
-5. Open `~/Downloads/ArcaneaKura/` as a new Obsidian vault — the
-   wikilinks, backlinks and graph view light up immediately.
+5. Open `~/Downloads/Kura/` as a new Obsidian vault — the wikilinks,
+   backlinks and graph view light up immediately.
 
 ---
 
@@ -85,7 +85,7 @@ title: "Naming the extension"
 platform: chatgpt
 source: https://chatgpt.com/c/a8d9e1c4
 capturedAt: 2026-05-13T22:14:00+02:00
-capturedBy: arcanea-kura/0.2.0
+capturedBy: kura/0.2.0
 schemaVersion: 0.2.0
 messageCount: 24
 hasMedia: true
@@ -121,7 +121,7 @@ Full schema: **[FORMAT_SPEC.md](FORMAT_SPEC.md)**.
 
 ---
 
-## The workflow this enables
+## The Kura workflow
 
 The extension is one piece of a three-stage system:
 
@@ -129,29 +129,60 @@ The extension is one piece of a three-stage system:
 ┌──────────────────┐    ┌────────────────────┐    ┌────────────────────┐
 │  Export          │ →  │  Process           │ →  │  See               │
 │  (this ext)      │    │  (Claude Code skill│    │  (Obsidian graph,  │
-│                  │    │   /kura-process)   │    │   second-brain UI) │
+│                  │    │   /kura-process)   │    │   your second brain)│
 └──────────────────┘    └────────────────────┘    └────────────────────┘
-   browser → disk         disk → entity links        disk → visual graph
+   browser → disk         disk → clean notes        disk → visual graph
 ```
 
 - **Export** (this repo): the extension. Local-first. No account.
 - **Process** (Claude Code): the [`kura-process`](.claude/commands/kura-process.md)
-  skill walks `ArcaneaKura/` and emits `_entities/` notes for characters,
-  locations, artifacts, lore — fully Obsidian-linked.
+  skill walks your `Kura/` vault and emits clean per-conversation notes
+  in Obsidian-ready form.
 - **See**: Obsidian's native graph view shows the connections forming in
-  real time. Later, the Arcanea second-brain visualizer rebuilds this in
-  3D, but that is deferred — Obsidian carries day one.
+  real time from the wikilinks in your frontmatter.
 
 The moat is **not the extension**. It is the format + the skill + the
-eventual visualizer. The extension is the on-ramp.
+ecosystem of integrations that build on top. The extension is the on-ramp.
+
+---
+
+## Integrations
+
+Kura is the open standard. Anyone can build on top.
+
+### Arcanea Kura — worldbuilding specialization
+
+Arcanea (the creator universe that originally built Kura) ships its own
+specialization layer for storytellers and worldbuilders:
+
+- **[`/arcanea-kura-process`](.claude/commands/arcanea-kura-process.md)** —
+  a richer processing skill that extracts characters, locations,
+  artifacts, and lore from each captured conversation, emitting per-entity
+  notes under `_entities/` for Obsidian graph view.
+- **Opt-in mirror** to the Arcanea second-brain via the
+  `Send to Arcanea` button in the popup. Off by default, fires only on
+  explicit click. See [`arcanea.ai/kura`](https://arcanea.ai/kura) for
+  the specialization page and [`arcanea.ai/privacy/kura`](https://arcanea.ai/privacy/kura)
+  for the policy.
+
+The Arcanea layer is purely additive. The sovereign Kura extension never
+calls Arcanea on its own.
+
+### Build your own
+
+The format spec is stable at v0.2.0. Build a Logseq integration, a
+Notion sync, a vector-index over your Kura vault, a Quartz publisher —
+anything that reads YAML frontmatter and Markdown can read Kura.
+
+PRs welcome.
 
 ---
 
 ## Install (manual / developer mode)
 
 ```bash
-git clone https://github.com/frankxai/arcanea-vault arcanea-kura
-cd arcanea-kura
+git clone https://github.com/frankxai/arcanea-vault kura
+cd kura
 pnpm install
 pnpm build
 ```
@@ -163,20 +194,20 @@ Then in Chrome:
 3. **Load unpacked** → select the `dist/` folder.
 4. Pin the extension to the toolbar.
 
-The repo URL is still `arcanea-vault` until the GitHub rename lands — the
-product name is **Arcanea Kura** v0.2.0.
+The repo URL is still `arcanea-vault` until the GitHub rename to `kura`
+lands — the product name is **Kura** v0.2.0.
 
 ---
 
 ## Privacy
 
-- Everything captured lives on **your disk** inside `ArcaneaKura/`.
+- Everything captured lives on **your disk** inside `Kura/`.
 - IndexedDB is used only as an in-extension lookup index for fast
   cross-conversation queries. The filesystem is the source of truth.
 - No telemetry. No analytics. No account required.
-- A single optional **"Send to Arcanea"** button exists in the popup for
-  users who want to mirror exports to their Arcanea second-brain. It is
-  off by default and never fires without an explicit click.
+- A single optional **Send to Arcanea (opt-in)** button exists in the
+  popup for users who want to mirror exports to their Arcanea second-brain.
+  It is off by default and never fires without an explicit click.
 - Host permissions are limited to the AI platforms the scrapers run on,
   plus `arcanea.ai` for the optional bridge. Nothing else.
 
@@ -188,26 +219,27 @@ Full policy: [arcanea.ai/privacy/kura](https://arcanea.ai/privacy/kura).
 
 | Version | Scope |
 |---------|-------|
-| **0.2.0** *(current)* | Local-first vault, Obsidian-compatible markdown, `kura-process` skill, redesigned popup. |
-| 0.2.1 | Side-panel browser for the local vault; in-extension search. |
-| 0.3.0 | Per-platform scraper hardening (DOM drift fixes); idempotent re-capture. |
+| **0.2.0** *(current)* | Sovereign Kura: local-first vault, Obsidian-compatible markdown, generic `kura-process` skill, optional `arcanea-kura-process` worldbuilding skill, redesigned popup, sidepanel library, Playwright extension test. |
+| 0.2.1 | Side-panel browser improvements; in-extension full-text search. |
+| 0.3.0 | Per-platform scraper hardening (DOM drift fixes); idempotent re-capture; PNG screenshot export. |
 | 0.4.0 | Real-time graph preview inside the side panel (D3 + frontmatter links). |
-| 0.5.0 | Arcanea second-brain bridge: opt-in mirror of `_entities/` into the user's Living Worlds graph. |
+| 0.5.0 | Logseq / Anytype integration recipes. |
 
 ---
 
 ## Development
 
 ```bash
-pnpm install          # workspace install
-pnpm typecheck        # TS check
+pnpm install
+pnpm typecheck        # tsc --noEmit
 pnpm build            # one-shot production build to dist/
-pnpm dev              # watch mode (for active development only)
+pnpm dev              # watch mode (active dev only)
 pnpm lint             # eslint
+pnpm test:extension   # Playwright end-to-end against built dist/
 ```
 
-Stack: TypeScript 5, Vite 5, `@crxjs/vite-plugin` for MV3, Tailwind 3
-(currently only for the unused side-panel scaffold).
+Stack: TypeScript 5, Vite 5, `@crxjs/vite-plugin` for MV3, Playwright
+for browser integration tests.
 
 ---
 
@@ -217,5 +249,6 @@ MIT — see [LICENSE](LICENSE).
 
 ---
 
-*Built by [Frank](https://arcanea.ai) as the export on-ramp for the
-Arcanea creative OS.*
+*Kura is built by [Arcanea](https://arcanea.ai) and given to everyone.
+Use it for fiction, for code, for therapy notes, for anything you write
+with an AI that you want to keep.*

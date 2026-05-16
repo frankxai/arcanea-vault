@@ -1,8 +1,8 @@
-# Arcanea Kura — Claude Code Configuration
+# Kura — Claude Code Configuration
 
 Local-first Chrome MV3 extension that captures AI conversations into an
 Obsidian-compatible vault on disk. The repo URL is still
-`arcanea-vault`; the product is **Arcanea Kura** v0.2.0.
+`arcanea-vault`; the product is **Kura** v0.2.0.
 
 ## Source of truth
 
@@ -102,5 +102,5 @@ file. If you need a new color, add it to `:root` in popup.css first.
   publishable content. Use Library on `arcanea.ai` for that.
 - Not a cloud product. The bridge is an opt-in mirror, not a substitute
   for the local vault.
-- Not multi-vault. One `ArcaneaKura/` root per machine. Multi-vault is
+- Not multi-vault. One `Kura/` root per machine. Multi-vault is
   a v0.5+ concern.

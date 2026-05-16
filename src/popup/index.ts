@@ -1,5 +1,5 @@
 // ============================================================
-// Arcanea Kura — Popup Controller
+// Kura — Popup Controller
 // ============================================================
 
 import type { DetectionResult, ExportFormat } from '@/core/types';
@@ -200,7 +200,7 @@ $quickExportBtn.addEventListener('click', async () => {
   }
 
   const captured = result?.captured as Record<string, number>;
-  $status.textContent = `Saved ${captured?.conversations || 0} · ${captured?.media || 0} media · ${captured?.prompts || 0} prompts → ArcaneaKura/`;
+  $status.textContent = `Saved ${captured?.conversations || 0} · ${captured?.media || 0} media · ${captured?.prompts || 0} prompts → Kura/`;
   $status.className = 'subtitle status-success';
 });
 

@@ -1,7 +1,7 @@
 // ============================================================
-// Arcanea Kura — Background Service Worker
+// Kura — Background Service Worker
 // Orchestrates downloads into the local Obsidian-compatible vault.
-// Local-first: every capture lands in ArcaneaKura/ on disk.
+// Local-first: every capture lands in Kura/ on disk.
 // ============================================================
 
 import { detectPlatform } from '@/core/detector';
@@ -28,7 +28,7 @@ import type {
 interface DownloadJob {
   /** Pre-existing remote URL (http/https) OR a blob: URL we created locally. */
   url: string;
-  /** Vault-relative path. The full chrome path is `ArcaneaKura/<path>`. */
+  /** Vault-relative path. The full chrome path is `Kura/<path>`. */
   vaultPath: string;
   /** When this job was created — used to clean up blob URLs we own. */
   isBlobUrl?: boolean;
@@ -85,7 +85,7 @@ function queueText(vaultPath: string, content: string, mimeType: string): void {
 
 /**
  * Persist a detection result to disk per FORMAT_SPEC.md:
- *   - conversation.md + prompts.md inside ArcaneaKura/<platform>/<slug>/
+ *   - conversation.md + prompts.md inside Kura/<platform>/<slug>/
  *   - assets/<filename> for each media item
  *   - assets/<filename>-prompt.md sidecar for AI-generated media
  * Returns counts for the popup to display.
@@ -299,8 +299,10 @@ const messageHandlers: Record<string, MessageHandler> = {
     return vault.listConversations(platform);
   },
 
-  // Opt-in cloud bridge — disabled by default per the local-first manifesto.
-  // The user must explicitly toggle "Send to Arcanea" in settings before this fires.
+  // Opt-in Arcanea integration — disabled by default per the local-first
+  // manifesto. The user must explicitly click "Send to Arcanea" to fire.
+  // This is the only Arcanea-aware code in the sovereign Kura extension;
+  // everything else is brand-neutral.
   KURA_SEND_TO_ARCANEA: async (message) => {
     const detection = message.detection as DetectionResult;
     const endpoint =
@@ -311,10 +313,11 @@ const messageHandlers: Record<string, MessageHandler> = {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'X-Arcanea-Source': 'arcanea-kura/0.2.0',
+          'X-Kura-Source': 'kura/0.2.0',
         },
         body: JSON.stringify({
-          source: 'arcanea-kura',
+          source: 'kura',
+          integration: 'arcanea',
           version: '0.2.0',
           schemaVersion: '0.2.0',
           platform: detection.platform,
@@ -394,4 +397,4 @@ chrome.tabs.onActivated.addListener(async (activeInfo) => {
   }
 });
 
-console.log('[Arcanea Kura] Service worker initialized · schema v0.2.0');
+console.log('[Kura] Service worker initialized · schema v0.2.0');

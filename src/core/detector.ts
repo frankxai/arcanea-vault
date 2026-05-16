@@ -1,5 +1,5 @@
 // ============================================================
-// Arcanea Kura — Platform Detector
+// Kura — Platform Detector
 // Auto-detects which AI platform the user is on.
 // ============================================================
 

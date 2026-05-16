@@ -1,8 +1,8 @@
-# Arcanea Kura — Vault Format Specification
+# Kura — Vault Format Specification
 
 > Version 0.2.0 · Locked 2026-05-13
 
-This document is the contract between the **Arcanea Kura** browser extension
+This document is the contract between the **Kura** browser extension
 (the *capture layer*) and any downstream processor (Obsidian, Logseq, the
 Claude Code `kura-process` skill, the Arcanea second-brain visualizer).
 
@@ -32,11 +32,11 @@ work — that is the day-one viral demo.
 
 ## 2. Folder layout
 
-The capture root is `ArcaneaKura/` inside the user's default download
+The capture root is `Kura/` inside the user's default download
 directory. Inside it:
 
 ```
-ArcaneaKura/
+Kura/
 ├── _index/
 │   ├── chatgpt.md         # rollup note linking every chatgpt conversation
 │   ├── claude.md
@@ -114,7 +114,7 @@ source: https://chatgpt.com/c/abc123
 
 # --- capture ---
 capturedAt: 2026-05-13T22:14:00+02:00
-capturedBy: arcanea-kura/0.2.0
+capturedBy: kura/0.2.0
 schemaVersion: 0.2.0
 
 # --- shape ---
@@ -191,7 +191,7 @@ Where `assistantLabel` is the platform-specific name:
 ```markdown
 ---
 
-*Captured by [Arcanea Kura](https://github.com/frankxai/arcanea-kura).*
+*Captured by [Kura](https://github.com/frankxai/kura).*
 ```
 
 ---
@@ -229,7 +229,7 @@ Empty `prompts.md` is omitted entirely (no zero-content files).
 ## 5. `_entities/` directory (skill-managed)
 
 When the user runs `/kura-process` (the Claude Code skill), it scans
-`ArcaneaKura/**/conversation.md`, extracts named entities, and emits one
+`Kura/**/conversation.md`, extracts named entities, and emits one
 Markdown note per entity under `_entities/`.
 
 ### 5.1 Entity note schema
@@ -249,7 +249,7 @@ schemaVersion: 0.2.0
 
 # Talia
 
-> Auto-extracted by Arcanea Kura. Promote to canon by setting `canon: true`
+> Auto-extracted by Kura. Promote to canon by setting `canon: true`
 > and moving this file to `.arcanea/canon/characters/`.
 
 ## Mentions
@@ -334,6 +334,6 @@ A re-capture of the same conversation (matched by `id` + `platform`):
 
 The skill refuses to operate on a vault with a newer `schemaVersion` than it
 knows. It auto-migrates older vaults on first run, writing a one-line note to
-`ArcaneaKura/.migration.log`.
+`Kura/.migration.log`.
 
 Current: **0.2.0** (locked 2026-05-13).

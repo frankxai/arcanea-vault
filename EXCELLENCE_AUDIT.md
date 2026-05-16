@@ -1,4 +1,4 @@
-# Arcanea Kura — Excellence audit (May 2026)
+# Kura — Excellence audit (May 2026)
 
 > Side-by-side comparison against the state of the art in AI-conversation
 > capture, the rationale for every design choice that diverges, and the
@@ -185,8 +185,8 @@ Ordered by blocker severity.
 
 Commits this session (chronological):
 - `0b6787a` feat: rebrand to Arcanea Threads + lock vault format v0.2.0
-- `3993daa` feat(rebrand): lock product name as Arcanea Kura
+- `3993daa` feat(rebrand): lock product name as Kura
 - `c4fc4b4` feat(kura): sidepanel library + health-aware popup + bridge handler
 - `739a947a` feat(kura): bridge endpoint + landing + privacy policy
-- `e3c8e03a` docs(ops): handover for 2026-05-13 — Arcanea Kura rename + bridge ship
+- `e3c8e03a` docs(ops): handover for 2026-05-13 — Kura rename + bridge ship
 - `b8ebc50a` feat(kura): tier-S /kura landing + OG image + hardened bridge endpoint
