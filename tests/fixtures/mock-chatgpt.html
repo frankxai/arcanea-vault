@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>ChatGPT — mock fixture</title>
+  <!--
+    A minimal DOM fixture that mimics enough of chatgpt.com for the Kura
+    scraper to find conversation messages. Used by the Playwright extension
+    test in tests/extension.spec.ts. If you update the real ChatGPT scraper
+    in src/content/chatgpt.ts, update the matching selectors here too so the
+    test exercises the same code paths.
+  -->
+</head>
+<body>
+  <!-- Replicates the real ChatGPT data-message-author-role pattern -->
+  <main>
+    <article>
+      <div data-message-author-role="user">
+        <div class="text-message">
+          What should we name the extension? It needs to mean "storehouse for precious things."
+        </div>
+      </div>
+      <div data-message-author-role="assistant">
+        <div class="text-message">
+          Kura. 蔵. The fireproof Japanese storehouse for valuables.
+          Four letters, sacred, no software-product collision.
+        </div>
+      </div>
+      <div data-message-author-role="user">
+        <div class="text-message">
+          Lock it. Tagline: "Export your most precious writing."
+        </div>
+      </div>
+    </article>
+  </main>
+  <!-- Title that the scraper picks up -->
+  <h1 data-testid="conversation-title">Naming the extension</h1>
+</body>
+</html>

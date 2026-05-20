@@ -1,6 +1,6 @@
 // ============================================================
-// Arcanea Vault — Core Types
-// Your AI creations, captured and organized.
+// Kura — Core Types
+// Your AI work, exported into a local Obsidian-compatible vault.
 // ============================================================
 
 /** Supported AI platforms */
