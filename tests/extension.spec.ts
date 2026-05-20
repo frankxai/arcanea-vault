@@ -11,6 +11,10 @@
 import { test, expect, chromium, type BrowserContext } from '@playwright/test';
 import path from 'node:path';
 import fs from 'node:fs';
+import { fileURLToPath } from 'node:url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const REPO_ROOT = path.resolve(__dirname, '..');
 const DIST = path.join(REPO_ROOT, 'dist');
